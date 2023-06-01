@@ -2,9 +2,9 @@ import z, { SafeParseReturnType } from "zod";
 
 /**
  * validate value is string and return success \ failure indication
- * @param val 
+ * @param val
  * @returns SafeParseSuccess<Output> | SafeParseError<Input>
- * 
+ *
  */
 export function validateStringSafeParse(
   val: any
@@ -15,9 +15,14 @@ export function validateStringSafeParse(
 
 /**
  * validate value is string and throw if not
- * @param val 
+ * @param val
  */
 export function validateStringParse(val: any): void {
   const schema = z.string();
+  schema.parse(val);
+}
+
+export function validateStringMinMax(val: any): void {
+  const schema = z.string().min(3).max(5);
   schema.parse(val);
 }

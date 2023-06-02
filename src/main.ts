@@ -1,5 +1,8 @@
 import { validateObject, validateString } from "./lib/demo";
-import { validateForm } from "./lib/form-validation";
+import {
+  validateFormWithZod,
+  validateFormWithoutZod,
+} from "./lib/form-validation";
 import { UserFromClass } from "./types/e-user-form";
 // import "./style.css";
 
@@ -35,5 +38,7 @@ document
   .addEventListener("click", validateObject);
 document.querySelector("form")!.addEventListener("submit", (e) => {
   e.preventDefault();
-  validateForm();
+
+  // validateFormWithoutZod();
+  validateFormWithZod();
 });

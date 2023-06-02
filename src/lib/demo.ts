@@ -19,6 +19,13 @@ export function validateObject() {
   console.log("validatePerson(personOk) does not throw");
 
   try {
+    validatePerson({name : 11}); // should  throw
+  } catch (err) {
+    console.log("validatePerson({name : 11}) throw");
+    console.log(err);
+  }
+
+  try {
     validatePerson(null); // should  throw
   } catch (err) {
     console.log("validatePerson(null) throw");

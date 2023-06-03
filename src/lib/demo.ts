@@ -145,6 +145,9 @@ export function formatValidationError() {
     console.log("validatePersonSafeParse({name:123}) ---> show validationResult.error");
     console.log(validationResult.error);
 
+    console.log("validatePersonSafeParse({name:123}) ---> show validationResult.error.errors");
+    console.log(validationResult.error.errors);
+
     console.log("validatePersonSafeParse({name:123}) ---> validationResult.error.format()");
     const formatted = validationResult.error.format();
     console.log(formatted);

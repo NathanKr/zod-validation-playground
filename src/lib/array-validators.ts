@@ -12,3 +12,19 @@ export function validateStringArrayNotEmpty(
   const schema = z.string().array().nonempty();
   return schema.safeParse(ar);
 }
+
+/* 
+     validate url array with at least one
+     items and prefix https://www.linkedin.com/in/ 
+*/
+export function validateLinkedinProfilesUrl(
+  profileUrls: any
+): z.SafeParseReturnType<string[], string[]> {
+  const schema = z
+    .string()
+    .startsWith("https://www.linkedin.com/in/")
+    .url()
+    .array()
+    .nonempty();
+  return schema.safeParse(profileUrls);
+}

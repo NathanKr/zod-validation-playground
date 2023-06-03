@@ -1,5 +1,5 @@
 import { IPerson } from "../types/i-person";
-import { validateStringArrayNotEmpty } from "./array-validators";
+import { validateLinkedinProfilesUrl, validateStringArrayNotEmpty } from "./array-validators";
 import { validatePerson } from "./object-validators";
 import {
   validateStringMinMax,
@@ -78,6 +78,8 @@ export function validateArray(){
     "************************* validateArray **********************"
   );
 
+  console.log('\n-------- validate string array with at least one items -------');
+
   console.log('validateStringArrayNotEmpty(["1","2","3"]) --> ok');
   console.log(validateStringArrayNotEmpty(["1","2","3"])); // -- ok
 
@@ -90,6 +92,22 @@ export function validateArray(){
   console.log('validateStringArrayNotEmpty([1]) --> error ')
   console.log(validateStringArrayNotEmpty([1])) // --> not ok
 
-    
+  console.log('\n-------- validate url array with at least one items and prefix https://www.linkedin.com/in/ -------');
+  console.log('validateLinkedinProfilesUrl([]) --> error ')
+  console.log(validateLinkedinProfilesUrl([])) // --> not ok
+  
+  console.log('validateLinkedinProfilesUrl(["123"]) --> error ')
+  console.log(validateLinkedinProfilesUrl(["123"])) // --> not ok
 
+  console.log('validateLinkedinProfilesUrl(["123","abc"]) --> error ')
+  console.log(validateLinkedinProfilesUrl(["123","abc"])) // --> not ok
+
+  console.log('validateLinkedinProfilesUrl(["https://www.linkedin.com/"]) --> error ')
+  console.log(validateLinkedinProfilesUrl(["https://www.linkedin.com/"])) // --> not ok
+
+  console.log('validateLinkedinProfilesUrl(["https://www.linkedin.com/in/"]) --> ok ')
+  console.log(validateLinkedinProfilesUrl(["https://www.linkedin.com/in/"])) // -->  ok
+
+  console.log('validateLinkedinProfilesUrl(["https://www.linkedin.com/in/nathankrasney"]) --> ok ')
+  console.log(validateLinkedinProfilesUrl(["https://www.linkedin.com/in/nathankrasney"])) // -->  ok
 }

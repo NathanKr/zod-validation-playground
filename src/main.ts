@@ -7,9 +7,10 @@ document.querySelector<HTMLDivElement>("#app")!.innerHTML = `
   <div>
     <h1>zod validation for typescript in particular</h1>
     <h2>string and object validation</h2>
-    <p>click and check the console</p>
+    <p>click a button and check the console</p>
     ${getButtonElems()}
     <h2>User From</h2>
+    <p>click Submit to see validation error</p>
     <form class='${UserFromClass.form}'>
       <label>Name</label>
       <input class='${UserFromClass.name}'/>

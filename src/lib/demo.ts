@@ -1,9 +1,13 @@
+import { ZodFormattedError } from "zod";
 import { IPerson } from "../types/i-person";
 import {
   validateLinkedinProfilesUrl,
   validateStringArrayNotEmpty,
 } from "./array-validators";
-import { validatePersonParse } from "./object-validators";
+import {
+  validatePersonParse,
+  validatePersonSafeParse,
+} from "./object-validators";
 import {
   validateStringMinMax,
   validateStringParse,
@@ -132,8 +136,25 @@ export function validateArray() {
   ); // -->  ok
 }
 
+export function formatValidationError() {
+  console.log(
+    "************************* formatValidationError **********************"
+  );
+  const validationResult = validatePersonSafeParse({ name: 123 });
+  if (!validationResult.success) {
+    console.log("validatePersonSafeParse({name:123}) ---> show validationResult.error");
+    console.log(validationResult.error);
 
-export function showValidationError(){
-  console.log("************************* validateArray **********************");
+    console.log("validatePersonSafeParse({name:123}) ---> validationResult.error.format()");
+    const formatted = validationResult.error.format();
+    console.log(formatted);
+  
+    console.log('show name errors');
+    console.log(formatted.name?._errors);
 
+    console.log('show age errors');
+    console.log(formatted.age?._errors);
+
+
+  }
 }

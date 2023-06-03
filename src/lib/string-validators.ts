@@ -17,12 +17,12 @@ export function validateStringSafeParse(
  * validate value is string and throw if not
  * @param val
  */
-export function validateStringParse(val: any): void {
+export function validateStringParse(val: any): string {
   const schema = z.string();
-  schema.parse(val);
+  return schema.parse(val);
 }
 
-export function validateStringMinMax(val: any): void {
+export function validateStringMinMax(val: any): string {
   const schema = z.string().min(3).max(5);
-  schema.parse(val);
+  return schema.parse(val);
 }

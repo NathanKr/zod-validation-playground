@@ -1,4 +1,4 @@
-import { ZodFormattedError, z } from "zod";
+import { z } from "zod";
 import { UserFromClass } from "../types/e-user-form";
 
 function getInput(c: UserFromClass): HTMLInputElement {

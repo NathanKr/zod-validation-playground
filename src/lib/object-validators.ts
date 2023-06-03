@@ -1,14 +1,34 @@
-import { z } from "zod";
+import { SafeParseReturnType, z } from "zod";
 
 /**
  * validate user object - should i use IPerson instead of any ??
  * throw if not
- * @param person 
+ * @param person
  */
-export function validatePerson(person: any): void {
+export function validatePersonParse(person: any): {
+  name: string;
+  age: number;
+} {
   const schemaUser = z.object({
     name: z.string(),
     age: z.number(),
   });
-  schemaUser.parse(person);
+  return schemaUser.parse(person);
+}
+
+export function validatePersonSafeParse(person: any): SafeParseReturnType<
+  {
+    name: string;
+    age: number;
+  },
+  {
+    name: string;
+    age: number;
+  }
+> {
+  const schemaUser = z.object({
+    name: z.string(),
+    age: z.number(),
+  });
+  return schemaUser.safeParse(person);
 }

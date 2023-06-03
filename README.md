@@ -7,6 +7,7 @@ Play with zod - a validation library for node and client side. Integrated nicely
 <li>validateObject : validate object with zod</li>
 <li>validateFormWithoutZod : validate form and issues errors without zod</li>
 <li>validateFormWithZod : validate form and issues errors by default with zod</li>
+<li>validateArray : validate array with zod</li>
 </ul>
 
 <h2>Points of interest</h2>

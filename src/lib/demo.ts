@@ -1,6 +1,9 @@
 import { IPerson } from "../types/i-person";
-import { validateLinkedinProfilesUrl, validateStringArrayNotEmpty } from "./array-validators";
-import { validatePerson } from "./object-validators";
+import {
+  validateLinkedinProfilesUrl,
+  validateStringArrayNotEmpty,
+} from "./array-validators";
+import { validatePersonParse } from "./object-validators";
 import {
   validateStringMinMax,
   validateStringParse,
@@ -16,20 +19,20 @@ export function validateObject() {
     age: 10,
   };
 
-  validatePerson(personOk); // should not throw
-  console.log("validatePerson(personOk) does not throw");
+  validatePersonParse(personOk); // should not throw
+  console.log("validatePersonParse(personOk) does not throw");
 
   try {
-    validatePerson({name : 11}); // should  throw
+    validatePersonParse({ name: 11 }); // should  throw
   } catch (err) {
-    console.log("validatePerson({name : 11}) throw");
+    console.log("validatePersonParse({name : 11}) throw");
     console.log(err);
   }
 
   try {
-    validatePerson(null); // should  throw
+    validatePersonParse(null); // should  throw
   } catch (err) {
-    console.log("validatePerson(null) throw");
+    console.log("validatePersonParse(null) throw");
     console.log(err);
   }
 }
@@ -39,7 +42,7 @@ export function validateString() {
     "************************* validateString **********************"
   );
 
-  console.log('--------- safeParse --------');
+  console.log("--------- safeParse --------");
   console.log(validateStringSafeParse("111")); //  { success: true, data: "111" }
   console.log(validateStringSafeParse(111)); // { success: false, error: Getter }
   console.log(validateStringSafeParse(true)); // { success: false, error: Getter }
@@ -47,7 +50,7 @@ export function validateString() {
   validateStringParse("111"); // ok
   console.log('validateStringParse("111") does not throw');
 
-  console.log('--------- parse --------');
+  console.log("--------- parse --------");
   try {
     validateStringParse(111); // throw
   } catch (err) {
@@ -57,57 +60,80 @@ export function validateString() {
   try {
     validateStringParse(true); // throw
   } catch (err) {
-    console.log('validateStringParse(true);  throw')
+    console.log("validateStringParse(true);  throw");
     console.log(err);
   }
 
-  console.log('--------- min max --------');
+  console.log("--------- min max --------");
   validateStringMinMax("ab12"); // ok , not throw
   console.log('validateStringMinMax("ab12") does not throw');
-  
+
   try {
-    validateStringMinMax("ab1222");; // throw because max len is 5
+    validateStringMinMax("ab1222"); // throw because max len is 5
   } catch (err) {
     console.log('validateStringMinMax("ab1222") throw');
     console.log(err);
   }
 }
 
-export function validateArray(){
+export function validateArray() {
+  console.log("************************* validateArray **********************");
+
   console.log(
-    "************************* validateArray **********************"
+    "\n-------- validate string array with at least one items -------"
   );
 
-  console.log('\n-------- validate string array with at least one items -------');
-
   console.log('validateStringArrayNotEmpty(["1","2","3"]) --> ok');
-  console.log(validateStringArrayNotEmpty(["1","2","3"])); // -- ok
+  console.log(validateStringArrayNotEmpty(["1", "2", "3"])); // -- ok
 
   console.log('validateStringArrayNotEmpty([1,"2","3"]) --> error ');
-  console.log(validateStringArrayNotEmpty([1,"2","3"])); // -- not ok
+  console.log(validateStringArrayNotEmpty([1, "2", "3"])); // -- not ok
 
-  console.log('validateStringArrayNotEmpty([]) --> error ')
-  console.log(validateStringArrayNotEmpty([])) // --> not ok
+  console.log("validateStringArrayNotEmpty([]) --> error ");
+  console.log(validateStringArrayNotEmpty([])); // --> not ok
 
-  console.log('validateStringArrayNotEmpty([1]) --> error ')
-  console.log(validateStringArrayNotEmpty([1])) // --> not ok
+  console.log("validateStringArrayNotEmpty([1]) --> error ");
+  console.log(validateStringArrayNotEmpty([1])); // --> not ok
 
-  console.log('\n-------- validate url array with at least one items and prefix https://www.linkedin.com/in/ -------');
-  console.log('validateLinkedinProfilesUrl([]) --> error ')
-  console.log(validateLinkedinProfilesUrl([])) // --> not ok
-  
-  console.log('validateLinkedinProfilesUrl(["123"]) --> error ')
-  console.log(validateLinkedinProfilesUrl(["123"])) // --> not ok
+  console.log(
+    "\n-------- validate url array with at least one items and prefix https://www.linkedin.com/in/ -------"
+  );
+  console.log("validateLinkedinProfilesUrl([]) --> error ");
+  console.log(validateLinkedinProfilesUrl([])); // --> not ok
 
-  console.log('validateLinkedinProfilesUrl(["123","abc"]) --> error ')
-  console.log(validateLinkedinProfilesUrl(["123","abc"])) // --> not ok
+  console.log('validateLinkedinProfilesUrl(["123"]) --> error ');
+  console.log(validateLinkedinProfilesUrl(["123"])); // --> not ok
 
-  console.log('validateLinkedinProfilesUrl(["https://www.linkedin.com/"]) --> error ')
-  console.log(validateLinkedinProfilesUrl(["https://www.linkedin.com/"])) // --> not ok
+  console.log('validateLinkedinProfilesUrl(["123","abc"]) --> error ');
+  console.log(validateLinkedinProfilesUrl(["123", "abc"])); // --> not ok
 
-  console.log('validateLinkedinProfilesUrl(["https://www.linkedin.com/in/"]) --> ok ')
-  console.log(validateLinkedinProfilesUrl(["https://www.linkedin.com/in/"])) // -->  ok
+  console.log(
+    'validateLinkedinProfilesUrl(["https://www.linkedin.com/"]) --> error '
+  );
+  console.log(validateLinkedinProfilesUrl(["https://www.linkedin.com/"])); // --> not ok
 
-  console.log('validateLinkedinProfilesUrl(["https://www.linkedin.com/in/nathankrasney"]) --> ok ')
-  console.log(validateLinkedinProfilesUrl(["https://www.linkedin.com/in/nathankrasney"])) // -->  ok
+  console.log(
+    'validateLinkedinProfilesUrl(["https://www.linkedin.com/in/", "1"]) --> not ok '
+  );
+  console.log(
+    validateLinkedinProfilesUrl(["https://www.linkedin.com/in/", "1"])
+  ); // -->  not ok
+
+  console.log(
+    'validateLinkedinProfilesUrl(["https://www.linkedin.com/in/"]) --> ok '
+  );
+  console.log(validateLinkedinProfilesUrl(["https://www.linkedin.com/in/"])); // -->  ok
+
+  console.log(
+    'validateLinkedinProfilesUrl(["https://www.linkedin.com/in/nathankrasney"]) --> ok '
+  );
+  console.log(
+    validateLinkedinProfilesUrl(["https://www.linkedin.com/in/nathankrasney"])
+  ); // -->  ok
+}
+
+
+export function showValidationError(){
+  console.log("************************* validateArray **********************");
+
 }

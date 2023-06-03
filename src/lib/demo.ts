@@ -1,4 +1,5 @@
 import { IPerson } from "../types/i-person";
+import { validateStringArrayNotEmpty } from "./array-validators";
 import { validatePerson } from "./object-validators";
 import {
   validateStringMinMax,
@@ -70,4 +71,25 @@ export function validateString() {
     console.log('validateStringMinMax("ab1222") throw');
     console.log(err);
   }
+}
+
+export function validateArray(){
+  console.log(
+    "************************* validateArray **********************"
+  );
+
+  console.log('validateStringArrayNotEmpty(["1","2","3"]) --> ok');
+  console.log(validateStringArrayNotEmpty(["1","2","3"])); // -- ok
+
+  console.log('validateStringArrayNotEmpty([1,"2","3"]) --> error ');
+  console.log(validateStringArrayNotEmpty([1,"2","3"])); // -- not ok
+
+  console.log('validateStringArrayNotEmpty([]) --> error ')
+  console.log(validateStringArrayNotEmpty([])) // --> not ok
+
+  console.log('validateStringArrayNotEmpty([1]) --> error ')
+  console.log(validateStringArrayNotEmpty([1])) // --> not ok
+
+    
+
 }

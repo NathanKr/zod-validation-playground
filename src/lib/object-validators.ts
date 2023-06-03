@@ -1,7 +1,7 @@
 import { z } from "zod";
 
 /**
- * validate user object
+ * validate user object - should i use IPerson instead of any ??
  * throw if not
  * @param person 
  */

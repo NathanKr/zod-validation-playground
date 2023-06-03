@@ -11,7 +11,7 @@ function getError(c: UserFromClass): HTMLParagraphElement {
 
 const formZodSchema = z.object({
   name: z.string().min(4).max(7),
-  email: z.string().email(), // how email help ???
+  email: z.string().email(), 
   age: z.number().min(18).max(65),
 });
 

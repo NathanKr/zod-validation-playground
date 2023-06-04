@@ -1,6 +1,6 @@
-import { ZodFormattedError } from "zod";
 import { IPerson } from "../types/i-person";
 import {
+  validateArrayMinMaxComplex,
   validateLinkedinProfilesUrl,
   validateStringArrayNotEmpty,
 } from "./array-validators";
@@ -134,6 +134,39 @@ export function validateArray() {
   console.log(
     validateLinkedinProfilesUrl(["https://www.linkedin.com/in/nathankrasney"])
   ); // -->  ok
+
+  console.log(
+    "\n-------- validate array with limit on length 5-10 items and item size - 5 char -------"
+  );
+
+  console.log("array with items in range ---> ok");
+  console.log(validateArrayMinMaxComplex(["111", "222", "333", "444", "555", "666"]));
+
+  console.log(
+    'validateArrayMinMaxComplex(["111","222","333"]) --> error , array len too small'
+  );
+  console.log(validateArrayMinMaxComplex(["111", "222", "333"]));
+
+  console.log("array with too many items ---> error");
+  console.log(
+    validateArrayMinMaxComplex([
+      "111",
+      "222",
+      "333",
+      "444",
+      "555",
+      "666",
+      "777",
+      "888",
+      "999",
+      "100",
+      "110",
+    ])
+  );
+
+  console.log("array with items in range but small ---> ok");
+  console.log(validateArrayMinMaxComplex(["111", "22", "333", "444", "555", "666"]));
+
 }
 
 export function formatValidationError() {
@@ -142,22 +175,26 @@ export function formatValidationError() {
   );
   const validationResult = validatePersonSafeParse({ name: 123 });
   if (!validationResult.success) {
-    console.log("validatePersonSafeParse({name:123}) ---> show validationResult.error");
+    console.log(
+      "validatePersonSafeParse({name:123}) ---> show validationResult.error"
+    );
     console.log(validationResult.error);
 
-    console.log("validatePersonSafeParse({name:123}) ---> show validationResult.error.errors");
+    console.log(
+      "validatePersonSafeParse({name:123}) ---> show validationResult.error.errors"
+    );
     console.log(validationResult.error.errors);
 
-    console.log("validatePersonSafeParse({name:123}) ---> validationResult.error.format()");
+    console.log(
+      "validatePersonSafeParse({name:123}) ---> validationResult.error.format()"
+    );
     const formatted = validationResult.error.format();
     console.log(formatted);
-  
-    console.log('show name errors');
+
+    console.log("show name errors");
     console.log(formatted.name?._errors);
 
-    console.log('show age errors');
+    console.log("show age errors");
     console.log(formatted.age?._errors);
-
-
   }
 }

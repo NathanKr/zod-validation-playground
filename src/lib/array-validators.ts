@@ -28,3 +28,16 @@ export function validateLinkedinProfilesUrl(
     .nonempty();
   return schema.safeParse(profileUrls);
 }
+
+/**
+ * validate a string array with at least 5 items but no mare than 10 items
+ * make sure every array item length is between 3 - 6 chars
+ * 
+ * @param array
+ *
+ */
+export function validateArrayMinMaxComplex(array: string[]) {
+  const schema = z.string().min(3).max(6).array().min(5).max(10);
+
+  return schema.safeParse(array);
+}

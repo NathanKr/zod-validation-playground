@@ -32,7 +32,7 @@ export function validateLinkedinProfilesUrl(
 /**
  * validate a string array with at least 5 items but no mare than 10 items
  * make sure every array item length is between 3 - 6 chars
- * 
+ *
  * @param array
  *
  */

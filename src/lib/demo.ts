@@ -7,6 +7,7 @@ import {
 import {
   validatePersonParse,
   validatePersonSafeParse,
+  validateSendMessageProfilesParams,
 } from "./object-validators";
 import {
   validateStringMinMax,
@@ -39,6 +40,20 @@ export function validateObject() {
     console.log("validatePersonParse(null) throw");
     console.log(err);
   }
+
+  console.log(
+    "------------------- validateSendMessageProfilesParams -----------"
+  );
+  const messageParagraphas = [""];
+  const profileUrls = [
+    "https://www.linkedin.com/in/sarit-egri-08904121b/",
+    "https://www.linkedin.com/in/sarit-egri-08904121b/",
+  ];
+  console.log('should fail because messageParagraphas has only 1 item but min number is 3');
+  
+  console.log(
+    validateSendMessageProfilesParams(profileUrls, messageParagraphas)
+  );
 }
 
 export function validateString() {
@@ -140,7 +155,9 @@ export function validateArray() {
   );
 
   console.log("array with items in range ---> ok");
-  console.log(validateArrayMinMaxComplex(["111", "222", "333", "444", "555", "666"]));
+  console.log(
+    validateArrayMinMaxComplex(["111", "222", "333", "444", "555", "666"])
+  );
 
   console.log(
     'validateArrayMinMaxComplex(["111","222","333"]) --> error , array len too small'
@@ -165,8 +182,9 @@ export function validateArray() {
   );
 
   console.log("array with items in range but small ---> ok");
-  console.log(validateArrayMinMaxComplex(["111", "22", "333", "444", "555", "666"]));
-
+  console.log(
+    validateArrayMinMaxComplex(["111", "22", "333", "444", "555", "666"])
+  );
 }
 
 export function formatValidationError() {

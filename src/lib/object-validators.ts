@@ -32,3 +32,28 @@ export function validatePersonSafeParse(person: any): SafeParseReturnType<
   });
   return schemaUser.safeParse(person);
 }
+
+/**
+ * 
+ * @param profileUrls expect array with profile url length 1-2
+ * @param messageParagraphas expect string array with length of at least 3
+ * @returns
+ * todo nath : type may be better than SafeParseReturnType<any, any>
+ */
+export function validateSendMessageProfilesParams(
+  profileUrls: string[],
+  messageParagraphas: string[]
+): SafeParseReturnType<any, any> {
+  const schema = z.object({
+    profileUrls: z
+      .string()
+      .startsWith("https://www.linkedin.com/in/")
+      .url()
+      .array()
+      .max(2)
+      .nonempty(),
+    messageParagraphas: z.string().array().min(3),
+  });
+
+  return schema.safeParse({ profileUrls, messageParagraphas });
+}

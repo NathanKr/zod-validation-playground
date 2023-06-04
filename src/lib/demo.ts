@@ -4,6 +4,7 @@ import {
   validateLinkedinProfilesUrl,
   validateStringArrayNotEmpty,
 } from "./array-validators";
+import { validateArrayCharLength } from "./custom-validation";
 import {
   validatePersonParse,
   validatePersonSafeParse,
@@ -49,8 +50,10 @@ export function validateObject() {
     "https://www.linkedin.com/in/sarit-egri-08904121b/",
     "https://www.linkedin.com/in/sarit-egri-08904121b/",
   ];
-  console.log('should fail because messageParagraphas has only 1 item but min number is 3');
-  
+  console.log(
+    "should fail because messageParagraphas has only 1 item but min number is 3"
+  );
+
   console.log(
     validateSendMessageProfilesParams(profileUrls, messageParagraphas)
   );
@@ -185,6 +188,23 @@ export function validateArray() {
   console.log(
     validateArrayMinMaxComplex(["111", "22", "333", "444", "555", "666"])
   );
+}
+
+export function customValidation() {
+  console.log(
+    '"*************************  customValidation   **********************"'
+  );
+  let maxSumCharsInArray = 5;
+  console.log(
+    `validateArrayCharLength(["123","abc"],${maxSumCharsInArray}) --> not ok , check error in console`
+  );
+  console.log(validateArrayCharLength(["123", "abc"], maxSumCharsInArray));
+
+  maxSumCharsInArray = 10;
+  console.log(
+    `validateArrayCharLength(["123","abc"],${maxSumCharsInArray}) -->  ok`
+  );
+  console.log(validateArrayCharLength(["123", "abc"], maxSumCharsInArray));
 }
 
 export function formatValidationError() {

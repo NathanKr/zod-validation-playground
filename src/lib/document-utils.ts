@@ -1,5 +1,6 @@
 import IButtonDemo from "../types/i-button-demo";
 import {
+  customValidation,
   formatValidationError,
   validateArray,
   validateObject,
@@ -11,6 +12,7 @@ export const buttons: IButtonDemo[] = [
   { text: "validate object", func: validateObject },
   { text: "validate array", func: validateArray },
   { text: "format validation error", func: formatValidationError },
+  { text: "custom validation", func: customValidation },
 ];
 
 export function getButtonElems(): string[] {

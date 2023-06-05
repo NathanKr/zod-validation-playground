@@ -1,3 +1,4 @@
+import { z } from "zod";
 import { IPerson } from "../types/i-person";
 import {
   validateArrayMinMaxComplex,
@@ -6,6 +7,7 @@ import {
 } from "./array-validators";
 import { validateArrayCharLength } from "./custom-validation";
 import {
+  schemaUser,
   validatePersonParse,
   validatePersonSafeParse,
   validateSendMessageProfilesParams,
@@ -189,6 +191,27 @@ export function validateArray() {
     validateArrayMinMaxComplex(["111", "22", "333", "444", "555", "666"])
   );
 }
+
+export function typeInference(){
+  console.log(
+    '"*************************  typeInference   **********************"'
+  );
+
+  // --- the old way --> no typescript error
+  console.log('validatePersonSafeParse({name : "John"}) ---> not ');
+  console.log(validatePersonSafeParse({name : "John"}));
+   
+  /* --- the new way  ---> infer type from schema and use for input --> 
+        you get type error on development for changes in the schema !!!!*/
+   
+  const person  : z.infer<typeof schemaUser> =  {
+    name: "john",
+    age: 10
+  }      
+  console.log('validatePersonSafeParse(person) ---> all properties must exist because z.infer is used');
+  console.log(validatePersonSafeParse(person));
+}
+
 
 export function customValidation() {
   console.log(

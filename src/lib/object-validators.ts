@@ -16,6 +16,11 @@ export function validatePersonParse(person: any): {
   return schemaUser.parse(person);
 }
 
+export const schemaUser = z.object({
+  name: z.string(),
+  age: z.number(),
+});
+
 export function validatePersonSafeParse(person: any): SafeParseReturnType<
   {
     name: string;
@@ -26,15 +31,11 @@ export function validatePersonSafeParse(person: any): SafeParseReturnType<
     age: number;
   }
 > {
-  const schemaUser = z.object({
-    name: z.string(),
-    age: z.number(),
-  });
   return schemaUser.safeParse(person);
 }
 
 /**
- * 
+ *
  * @param profileUrls expect array with profile url length 1-2
  * @param messageParagraphas expect string array with length of at least 3
  * @returns

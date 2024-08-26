@@ -1,4 +1,4 @@
-import { z } from "zod";
+import { ZodError, z } from "zod";
 import { IPerson } from "../types/i-person";
 import {
   validateArrayMinMaxComplex,
@@ -8,6 +8,7 @@ import {
 import { validateArrayCharLength } from "./custom-validation";
 import {
   schemaUser,
+  schemaUserRestrict,
   validatePersonParse,
   validatePersonSafeParse,
   validateSendMessageProfilesParams,
@@ -41,7 +42,7 @@ export function validateObject() {
     validatePersonParse(null); // should  throw
   } catch (err) {
     console.log("validatePersonParse(null) throw");
-    console.log(err);
+    console.log((err as ZodError).issues);
   }
 
   console.log(
@@ -210,6 +211,16 @@ export function typeInference(){
   }      
   console.log('validatePersonSafeParse(person) ---> all properties must exist because z.infer is used');
   console.log(validatePersonSafeParse(person));
+
+  const person1  : z.infer<typeof schemaUserRestrict> =  {
+    name: "",
+    age: 10
+  }      
+  
+  console.log(`person1 use infered schemaUserRestrict`);
+  console.log(person1);
+  console.log(`schemaUserRestrict.safeParse(person1)`);
+  console.log(schemaUserRestrict.safeParse(person1));
 }
 
 

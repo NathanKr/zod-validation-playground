@@ -21,6 +21,11 @@ export const schemaUser = z.object({
   age: z.number(),
 });
 
+export const schemaUserRestrict = z.object({
+  name: z.string().min(1,"name must not be empty"),
+  age: z.number(),
+});
+
 export function validatePersonSafeParse(person: any): SafeParseReturnType<
   {
     name: string;

@@ -22,7 +22,7 @@ export const schemaUser = z.object({
 });
 
 export const schemaUserRestrict = z.object({
-  name: z.string().min(1,"name must not be empty"),
+  name: z.string().min(1, "name must not be empty"),
   age: z.number(),
 });
 
@@ -38,6 +38,10 @@ export function validatePersonSafeParse(person: any): SafeParseReturnType<
 > {
   return schemaUser.safeParse(person);
 }
+
+export const nonEmptyNumberArraySchema = z
+  .array(z.number())
+  .nonempty({ message: "Array cannot be empty" });
 
 /**
  *

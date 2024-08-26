@@ -7,6 +7,7 @@ import {
 } from "./array-validators";
 import { validateArrayCharLength } from "./custom-validation";
 import {
+  nonEmptyNumberArraySchema,
   schemaUser,
   schemaUserRestrict,
   validatePersonParse,
@@ -221,6 +222,14 @@ export function typeInference(){
   console.log(person1);
   console.log(`schemaUserRestrict.safeParse(person1)`);
   console.log(schemaUserRestrict.safeParse(person1));
+  type X = z.infer<typeof nonEmptyNumberArraySchema>
+  // ---- you have to add unknown otherwise it will provide compile error for at least one otem in array
+  const numbers1 : X = [] as unknown as X;
+  console.log(numbers1.length);
+  // ---- but using unknown you can do anything , even use arrray of string altough this is array of numbers
+  const numbers2 : X = ["a","b"] as unknown as X;
+  console.log(numbers2.length);
+  
 }
 
 

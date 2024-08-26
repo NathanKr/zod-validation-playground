@@ -8,6 +8,7 @@ import {
 import { validateArrayCharLength } from "./custom-validation";
 import {
   nonEmptyNumberArraySchema,
+  Numbers,
   schemaUser,
   schemaUserRestrict,
   validatePersonParse,
@@ -194,44 +195,57 @@ export function validateArray() {
   );
 }
 
-export function typeInference(){
+export function typeInference() {
   console.log(
     '"*************************  typeInference   **********************"'
   );
 
   // --- the old way --> no typescript error
   console.log('validatePersonSafeParse({name : "John"}) ---> not ');
-  console.log(validatePersonSafeParse({name : "John"}));
-   
+  console.log(validatePersonSafeParse({ name: "John" }));
+
   /* --- the new way  ---> infer type from schema and use for input --> 
         you get type error on development for changes in the schema !!!!*/
-   
-  const person  : z.infer<typeof schemaUser> =  {
+
+  const person: z.infer<typeof schemaUser> = {
     name: "john",
-    age: 10
-  }      
-  console.log('validatePersonSafeParse(person) ---> all properties must exist because z.infer is used');
+    age: 10,
+  };
+  console.log(
+    "validatePersonSafeParse(person) ---> all properties must exist because z.infer is used"
+  );
   console.log(validatePersonSafeParse(person));
 
-  const person1  : z.infer<typeof schemaUserRestrict> =  {
+  const person1: z.infer<typeof schemaUserRestrict> = {
     name: "",
-    age: 10
-  }      
-  
+    age: 10,
+  };
+
   console.log(`person1 use infered schemaUserRestrict`);
   console.log(person1);
   console.log(`schemaUserRestrict.safeParse(person1)`);
   console.log(schemaUserRestrict.safeParse(person1));
-  type X = z.infer<typeof nonEmptyNumberArraySchema>
-  // ---- you have to add unknown otherwise it will provide compile error for at least one otem in array
-  const numbers1 : X = [] as unknown as X;
-  console.log(numbers1.length);
-  // ---- but using unknown you can do anything , even use arrray of string altough this is array of numbers
-  const numbers2 : X = ["a","b"] as unknown as X;
-  console.log(numbers2.length);
-  
+  typeInferenceWithNonEmptryInferIssue();
+  typeInferenceWithNonEmptryInferSolution();
 }
 
+function typeInferenceWithNonEmptryInferIssue() {
+  type X = z.infer<typeof nonEmptyNumberArraySchema>;
+  // ---- you have to add unknown otherwise it will provide compile error for at least one otem in array
+  const numbers1: X = {numbers : []} as unknown as X;
+  console.log(numbers1.numbers.length);
+  // ---- but using unknown you can do anything , even use arrray of string altough this is array of numbers
+  const numbers2: X = {numbers :["a", "b"]} as unknown as X;
+  console.log(numbers2.numbers.length);
+}
+
+function typeInferenceWithNonEmptryInferSolution() {
+  const obj: Numbers = { numbers: [] }; // allowed but force nonEmptyNumberArraySchema structure
+  console.log(obj.numbers.length);
+  const res = nonEmptyNumberArraySchema.safeParse(obj);
+  console.log("safeParse of empty array");
+  console.log(res);
+}
 
 export function customValidation() {
   console.log(

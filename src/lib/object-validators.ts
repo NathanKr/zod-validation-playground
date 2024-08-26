@@ -39,9 +39,11 @@ export function validatePersonSafeParse(person: any): SafeParseReturnType<
   return schemaUser.safeParse(person);
 }
 
-export const nonEmptyNumberArraySchema = z
-  .array(z.number())
-  .nonempty({ message: "Array cannot be empty" });
+export type Numbers = { numbers: number[] }
+
+export const nonEmptyNumberArraySchema = z.object({
+  numbers: z.array(z.number()).nonempty({ message: "Array cannot be empty" }),
+}) as z.ZodType<Numbers>;
 
 /**
  *
